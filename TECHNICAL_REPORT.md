@@ -70,6 +70,18 @@ The system comprises several interconnected components, each responsible for a d
 
 - **Post-Flag Review**: When a flag is obtained, a review process compares all flag-producing candidates against the vulnerability description and selects the single best-matching PoC as the final submission, using crash-type preferences and description-alignment heuristics.
 
+### 2.4 Investigation State and Hypothesis Coordination
+
+Multi-agent investigation is organized as an iterative hypothesis-verification loop controlled by an explicit investigation state. The main agent first maps plausible input entries and vulnerability sinks that may lead to crash accroding to `description.txt`, then constructs a hypothesis set `H = {h1, ..., hn}`, where each `hi` represents a candidate `ENTRY -> SINK` path together with relevant source locations, intermediate checkpoints, supporting evidence, and conditions that may disprove the path. Recording multiple competing hypotheses before deeper investigation reduces premature commitment to the first suspicious code path.
+
+The main agent then launches bounded sub-agents to independently verify  each <img width="1535" height="1024" alt="image" src="https://github.com/user-attachments/assets/2763eb11-7ea0-4165-a7fa-9c637a87f0b2" />
+selected hypotheses from `H`. Each sub-agent focuses on one candidate path: it traces how attacker-controlled input may propagate toward the suspected sink, inspects the relevant source code and intermediate states, constructs candidate PoCs, and submits them to the CyberGym server for execution feedback. The resulting crash information, successful PoCs, supporting observations, or failure reasons are returned to the main agent as evidence for the corresponding hypothesis.
+
+The main agent aggregates these results and updates the hypothesis set. Hypotheses contradicted by execution or source evidence are discarded, while supported paths are prioritized for further PoC refinement. If no sub-agent validates a viable path, the returned evidence is used to revise the current search space and construct a new set of hypotheses for the next investigation round. The overall process therefore follows an iterative **hypothesize -> parallel verify -> submit -> aggregate -> re-hypothesize** cycle until a sufficiently supported vulnerability path is identified or the investigation budget is exhausted.
+
+Once a viable path is established, the main agent proceeds with focused PoC construction and refinement. The accumulated hypothesis and evidence state is retained throughout the task and reused during post-flag review, allowing a flag-producing PoC to be assessed not only by whether it crashes, but also by whether its crash behavior and execution path are consistent with the vulnerability under investigation.
+
+
 ---
 
 ## 3. Capability and Evaluation Boundary
