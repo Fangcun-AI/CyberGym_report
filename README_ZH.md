@@ -5,7 +5,7 @@
 **基准**：CyberGym Level 1  
 **成功率**：91.5%（最终提交指标）  
 **类别**：智能体
-**语言**：[English](./TECHNICAL_REPORT.md) | 中文版
+**语言**：[English](./README.md) | 中文版
 
 ---
 

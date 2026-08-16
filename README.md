@@ -5,7 +5,7 @@
 **Benchmark**: CyberGym Level 1
 **Success Rate**: 91.5% (final-submission metric)
 **Category**: agent
-**Language**: English | [中文版](./TECHNICAL_REPORT_ZH.md)
+**Language**: English | [中文版](./README_ZH.md)
 
 ---
 
