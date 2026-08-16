@@ -1,4 +1,4 @@
-# FangcunCyber：面向真实世界漏洞复现的假设驱动多智能体调查
+# FangcunCyber：面向真实世界漏洞复现的假设驱动多智能体框架
 
 **智能体**：`FangcunCyber`<br>
 **模型**：DeepSeek V4 Flash 0731（`deepseek-v4-flash`）  
