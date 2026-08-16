@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1535" height="925" viewBox="0 45 1535 925" role="img" aria-labelledby="title desc">
+  <title id="title">Hypothesis verification and coordination workflow</title>
+  <desc id="desc">The main agent builds a hypothesis set, assigns hypotheses to sub-agents, submits proof-of-concept inputs to the server, aggregates feedback, and either proceeds or revises the search space.</desc>
+
+  <defs>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#e8f1ff"/>
+    </linearGradient>
+    <linearGradient id="violet" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eee8fb"/>
+    </linearGradient>
+    <linearGradient id="amber" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#fff1d2"/>
+    </linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#e6f4e7"/>
+    </linearGradient>
+    <linearGradient id="red" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#ffe9e8"/>
+    </linearGradient>
+
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="3" stdDeviation="8" flood-color="#111827" flood-opacity="0.08"/>
+    </filter>
+    <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feFlood flood-color="#d9e3f4" flood-opacity="0.26" result="color"/>
+      <feComposite in="color" in2="blur" operator="in" result="glow"/>
+      <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <marker id="blackArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#111111"/>
+    </marker>
+    <marker id="greenArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#20a145"/>
+    </marker>
+
+    <style>
+      text { font-family: Arial, Helvetica, "Noto Sans", "Noto Sans SC", sans-serif; fill: #111111; }
+      .h1 { font-size: 22px; font-weight: 700; }
+      .h2 { font-size: 20px; font-weight: 700; }
+      .body { font-size: 18px; font-weight: 400; }
+      .small { font-size: 16px; font-weight: 400; }
+      .flow { fill: none; stroke: #111111; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#blackArrow); }
+      .feedback { fill: none; stroke: #20a145; stroke-width: 1.8; stroke-dasharray: 9 7; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#greenArrow); }
+    </style>
+  </defs>
+
+  <rect width="1535" height="1024" fill="#ffffff"/>
+
+  <!-- Main agent -->
+  <g filter="url(#softGlow)">
+    <rect x="87" y="204" width="153" height="201" rx="14" fill="url(#blue)" stroke="#1672ff" stroke-width="1.6"/>
+  </g>
+  <text x="163.5" y="298" text-anchor="middle" class="h1">Main Agent</text>
+  <text x="163.5" y="330" text-anchor="middle" class="h2">(Coordinator)</text>
+
+  <!-- Hypothesis set -->
+  <g filter="url(#softShadow)">
+    <rect x="334" y="70" width="258" height="405" rx="16" fill="#fdfdfd" stroke="#606975" stroke-width="1.5"/>
+  </g>
+  <text x="463" y="111" text-anchor="middle" class="h1">Hypothesis Set&#160;&#160;H</text>
+
+  <rect x="357" y="146" width="214" height="53" rx="10" fill="url(#violet)" stroke="#8152db" stroke-width="1.4" filter="url(#softShadow)"/>
+  <text x="464" y="180" text-anchor="middle" class="body">h₁: ENTRY₁ → SINK₁</text>
+
+  <rect x="357" y="239" width="214" height="53" rx="10" fill="url(#violet)" stroke="#8152db" stroke-width="1.4" filter="url(#softShadow)"/>
+  <text x="464" y="273" text-anchor="middle" class="body">h₂: ENTRY₂ → SINK₂</text>
+
+  <text x="464" y="345" text-anchor="middle" class="h2">...</text>
+
+  <rect x="357" y="389" width="214" height="53" rx="10" fill="url(#violet)" stroke="#8152db" stroke-width="1.4" filter="url(#softShadow)"/>
+  <text x="464" y="423" text-anchor="middle" class="body">hₙ: ENTRYₙ → SINKₙ</text>
+
+  <!-- Main task path -->
+  <path d="M240 303 H334" class="flow"/>
+
+  <!-- Parallel sub-agents -->
+  <rect x="743" y="125" width="165" height="80" rx="12" fill="url(#blue)" stroke="#1672ff" stroke-width="1.5" filter="url(#softShadow)"/>
+  <text x="825.5" y="159" text-anchor="middle" class="h2">Sub-agent 1</text>
+  <text x="825.5" y="187" text-anchor="middle" class="body">(verify h₁)</text>
+
+  <rect x="743" y="253" width="165" height="80" rx="12" fill="url(#blue)" stroke="#1672ff" stroke-width="1.5" filter="url(#softShadow)"/>
+  <text x="825.5" y="287" text-anchor="middle" class="h2">Sub-agent 2</text>
+  <text x="825.5" y="315" text-anchor="middle" class="body">(verify h₂)</text>
+
+  <text x="825.5" y="369" text-anchor="middle" class="h2">...</text>
+
+  <rect x="743" y="391" width="165" height="80" rx="12" fill="url(#blue)" stroke="#1672ff" stroke-width="1.5" filter="url(#softShadow)"/>
+  <text x="825.5" y="425" text-anchor="middle" class="h2">Sub-agent n</text>
+  <text x="825.5" y="453" text-anchor="middle" class="body">(verify hₙ)</text>
+
+  <!-- Hypothesis assignments -->
+  <path d="M592 165 H743" class="flow"/>
+  <text x="666" y="148" text-anchor="middle" class="small">assign h₁</text>
+
+  <path d="M592 293 H743" class="flow"/>
+  <text x="666" y="276" text-anchor="middle" class="small">assign h₂</text>
+
+  <path d="M592 431 H743" class="flow"/>
+  <text x="666" y="414" text-anchor="middle" class="small">assign hₙ</text>
+
+  <!-- Submission nodes -->
+  <rect x="1022" y="138" width="129" height="57" rx="11" fill="url(#amber)" stroke="#f29a00" stroke-width="1.4" filter="url(#softShadow)"/>
+  <text x="1086.5" y="173" text-anchor="middle" class="body">Submit</text>
+
+  <rect x="1022" y="266" width="129" height="57" rx="11" fill="url(#amber)" stroke="#f29a00" stroke-width="1.4" filter="url(#softShadow)"/>
+  <text x="1086.5" y="301" text-anchor="middle" class="body">Submit</text>
+
+  <rect x="1022" y="404" width="129" height="57" rx="11" fill="url(#amber)" stroke="#f29a00" stroke-width="1.4" filter="url(#softShadow)"/>
+  <text x="1086.5" y="439" text-anchor="middle" class="body">Submit</text>
+
+  <path d="M908 165 H1022" class="flow"/>
+  <path d="M908 293 H1022" class="flow"/>
+  <path d="M908 431 H1022" class="flow"/>
+
+  <!-- Execution server -->
+  <rect x="1346" y="193" width="132" height="262" rx="15" fill="url(#green)" stroke="#21963c" stroke-width="1.5" filter="url(#softShadow)"/>
+  <text x="1412" y="310" text-anchor="middle" class="h1">Server</text>
+  <text x="1412" y="343" text-anchor="middle" class="h2">(execute)</text>
+
+  <!-- Submissions to server -->
+  <path d="M1151 166 H1263 Q1278 166 1278 181 V196 Q1278 211 1293 211 H1346" class="flow"/>
+  <path d="M1151 294 H1346" class="flow"/>
+  <path d="M1151 432 H1346" class="flow"/>
+
+  <!-- Server feedback -->
+  <path d="M1346 210 H913" class="feedback"/>
+  <text x="1182" y="235" text-anchor="middle" class="small" fill="#16883a">result / feedback</text>
+
+  <path d="M1346 337 H913" class="feedback"/>
+  <text x="1182" y="362" text-anchor="middle" class="small" fill="#16883a">result / feedback</text>
+
+  <path d="M1412 455 V470 H913" class="feedback"/>
+  <text x="1182" y="495" text-anchor="middle" class="small" fill="#16883a">result / feedback</text>
+
+  <!-- Evidence aggregation -->
+  <path d="M825 471 V528 Q825 539 814 539 H615 Q604 539 604 550 V591" class="feedback"/>
+
+  <rect x="498" y="591" width="258" height="154" rx="13" fill="url(#violet)" stroke="#8152db" stroke-width="1.5" filter="url(#softShadow)"/>
+  <text x="627" y="627" text-anchor="middle" class="h2">Aggregate &amp; Update</text>
+  <text x="516" y="668" class="small">• collect results</text>
+  <text x="516" y="697" class="small">• eliminate contradicted H</text>
+  <text x="516" y="726" class="small">• prioritize remaining H</text>
+
+  <!-- Decision and exit -->
+  <path d="M627 745 V810" class="flow"/>
+  <path d="M617 810 L706 875 L617 942 L528 875 Z" fill="url(#amber)" stroke="#f29a00" stroke-width="1.5" filter="url(#softShadow)"/>
+  <text x="617" y="868" text-anchor="middle" class="body">Any viable</text>
+  <text x="617" y="894" text-anchor="middle" class="body">path?</text>
+
+  <path d="M706 875 H814" class="flow"/>
+  <text x="757" y="855" text-anchor="middle" class="small">Yes</text>
+  <rect x="814" y="823" width="181" height="103" rx="13" fill="url(#green)" stroke="#21963c" stroke-width="1.5" filter="url(#softShadow)"/>
+  <text x="904.5" y="857" text-anchor="middle" class="body">Proceed to</text>
+  <text x="904.5" y="885" text-anchor="middle" class="body">PoC Construction</text>
+  <text x="904.5" y="913" text-anchor="middle" class="small">(Exit)</text>
+
+  <!-- Revision loop -->
+  <path d="M528 875 H331" class="flow"/>
+  <text x="438" y="855" text-anchor="middle" class="small">No</text>
+  <rect x="114" y="838" width="217" height="80" rx="11" fill="url(#red)" stroke="#ef4141" stroke-width="1.5" filter="url(#softShadow)"/>
+  <text x="222.5" y="872" text-anchor="middle" class="body">Revise search space</text>
+  <text x="222.5" y="900" text-anchor="middle" class="body">&amp; construct new H</text>
+  <path d="M114 878 H62 Q48 878 48 864 V318 Q48 304 62 304 H87" class="flow"/>
+
+  <!-- Legend -->
+  <rect x="1142" y="839" width="269" height="107" rx="13" fill="#ffffff" stroke="#aeb7c6" stroke-width="1.2" filter="url(#softShadow)"/>
+  <path d="M1173 873 H1239" class="flow"/>
+  <text x="1258" y="880" class="body">Task Flow</text>
+  <path d="M1173 916 H1239" class="feedback"/>
+  <text x="1258" y="923" class="body">Feedback Flow</text>
+</svg>
