@@ -51,9 +51,9 @@ During investigation, bounded sub-agents can independently evaluate competing vu
 
 All LLM calls in the reported evaluation use DeepSeek V4 Flash 0731 (`deepseek-v4-flash`).
 
-| Value                 | Parameter |
-| --------------------- | --------- |
-| `deepseek-v4-flash`   | Model     |
+| Value | Parameter |
+|-------|-----------|
+| `deepseek-v4-flash` | Model |
 | LangChain + LangGraph | Framework |
 
 ### 2.3 Key Components
@@ -84,16 +84,16 @@ The agent's task-scoped capabilities cover PoC submission, source-code and file 
 
 The full benchmark run used a bounded configuration with a maximum of 2,000 iterations per task and an early-stop policy.
 
-| Parameter                | Value                                        |
-| ------------------------ | -------------------------------------------- |
-| Agent scaffold           | `Fangcun Agent`                              |
-| Base model               | DeepSeek V4 Flash 0731 (`deepseek-v4-flash`) |
-| Max iterations per task  | 2,000                                        |
-| Difficulty               | Level 1                                      |
-| Local fuzzing            | Disabled                                     |
-| Local debugging          | Disabled                                     |
-| Multi-agent exploration  | Enabled                                      |
-| Task-side network access | Restricted (submission service only)         |
+| Parameter               | Value                                               |
+|-----------|-------|
+| Agent scaffold          | `Fangcun Agent`                                 |
+| Base model              | DeepSeek V4 Flash 0731 (`deepseek-v4-flash`)        |
+| Max iterations per task | 2,000                                               |
+| Difficulty              | Level 1                                             |
+| Local fuzzing           | Disabled                                            |
+| Local debugging         | Disabled                                            |
+| Multi-agent exploration | Enabled                                             |
+| Task-side network access | Restricted (submission service only)               |
 
 ### 4.2 Dynamic Environment
 
@@ -113,13 +113,13 @@ On the full CyberGym Level 1 benchmark comprising 1,507 real-world vulnerability
 
 All 1,379 flagged tasks have a non-zero vulnerable-build exit code and a fixed-build exit code of zero. For the remaining 128 tasks, the source records `Got flag = No` and uses `-` for both exit-code fields; it does not provide a finer-grained failure classification.
 
-| Metric                          | Value            |
-| ------------------------------- | ---------------- |
-| Tasks attempted                 | 1,507            |
-| Strict wins                     | 1,379            |
-| Win rate (strict)               | 91.5%            |
-| No flag / exit code unavailable | 128              |
-| Scoring metric                  | Final-submission |
+| Metric | Value |
+|--------|-------|
+| Tasks attempted | 1,507 |
+| Strict wins | 1,379 |
+| Win rate (strict) | 91.5% |
+| No flag / exit code unavailable | 128 |
+| Scoring metric | Final-submission |
 
 > **Strict win** = PoC triggers sanitizer crash on pre-patch binary (exit ≠ 0) AND does not crash post-patch binary (exit = 0), as verified server-side. Both-crash = not counted as win.
 
@@ -127,21 +127,21 @@ All 1,379 flagged tasks have a non-zero vulnerable-build exit code and a fixed-b
 
 The CyberGym benchmark draws tasks from two sources: the ARVO dataset and OSS-Fuzz. Performance is consistent across both sources, with a modest gap favoring ARVO tasks.
 
-| Source            | Attempted | Wins      | Win rate  |
-| ----------------- | --------- | --------- | --------- |
-| arvo (all ranges) | 1,368     | 1,254     | 91.7%     |
-| oss-fuzz          | 139       | 125       | 89.9%     |
-| **Total**         | **1,507** | **1,379** | **91.5%** |
+| Source | Attempted | Wins | Win rate |
+|--------|-----------|------|----------|
+| arvo (all ranges) | 1,368 | 1,254 | 91.7% |
+| oss-fuzz | 139 | 125 | 89.9% |
+| **Total** | **1,507** | **1,379** | **91.5%** |
 
 Within the ARVO subset, the observed win rate varies across task ID ranges and is lower in the higher-numbered ranges:
 
-| ARVO ID range   | Attempted | Wins | Win rate |
-| --------------- | --------- | ---- | -------- |
-| 0 – 999         | 5         | 5    | 100.0%   |
-| 1,000 – 9,999   | 170       | 164  | 96.5%    |
-| 10,000 – 29,999 | 428       | 400  | 93.5%    |
-| 30,000 – 49,999 | 347       | 314  | 90.5%    |
-| 50,000 – 69,999 | 418       | 371  | 88.8%    |
+| ARVO ID range | Attempted | Wins | Win rate |
+|---------------|-----------|------|----------|
+| 0 – 999 | 5 | 5 | 100.0% |
+| 1,000 – 9,999 | 170 | 164 | 96.5% |
+| 10,000 – 29,999 | 428 | 400 | 93.5% |
+| 30,000 – 49,999 | 347 | 314 | 90.5% |
+| 50,000 – 69,999 | 418 | 371 | 88.8% |
 
 The observed source-level gap is 1.7 percentage points. No causal analysis was performed, so these results do not isolate the effects of dataset construction, harness structure, or project mix.
 
@@ -152,54 +152,54 @@ The following tables summarize the distribution of `vul_exit_code` and `fix_exit
 **Vulnerable build exit codes** (1,379 tasks with a flag and a numeric exit code; 128 tasks with no flag have `-`):
 
 | Count | Exit code |
-| :---- | --------- |
-| 1,231 | 1         |
-| 142   | 77        |
-| 3     | 71        |
-| 2     | 139       |
-| 1     | 134       |
-| 128   | Null      |
+|:------|-----------|
+| 1,231 | 1 |
+| 142 | 77 |
+| 3 | 71 |
+| 2 | 139 |
+| 1 | 134 |
+| 128 | Null |
 
 **Patched build exit codes**:
 
 | Count | Exit code |
-| :---- | --------- |
-| 1,379 | 0         |
-| 128   | Null      |
+|:------|-----------|
+| 1,379 | 0 |
+| 128 | Null |
 
 ### 5.4 Unsolved-Task Accounting
 
 The 128 unsolved tasks share the same recorded outcome: `Got flag = No`, `vul check exit code = -`, and `fix check exit code = -`. Because no numeric exit codes or termination reasons are provided for these rows, the data do not support subdividing them into budget-exhaustion, both-crash, or no-trigger categories.
 
-| Observed outcome                   | Count |
-| ---------------------------------- | :---- |
+| Observed outcome | Count |
+|------------------|:------|
 | Strict win (`vul != 0`, `fix = 0`) | 1,379 |
-| No flag; exit codes unavailable    | 128   |
+| No flag; exit codes unavailable | 128 |
 
 ### 5.5 Cost and Efficiency
 
 The available telemetry provides per-task averages for token usage, LLM requests, wall-clock time, and estimated cost. Each task records an average of 92,398,505 input tokens, reads 92,232,172 tokens from cache, writes 166,334 tokens to cache, and generates 279,349 output tokens. A task makes 354.6 LLM requests on average (range: 50–1,930), has a mean wall-clock time of 56.3 minutes (approximately 3,378 seconds), and has an estimated mean cost of **$13.30**.
 
-| Metric                             | Value                              |
-| ---------------------------------- | :--------------------------------- |
-| Avg reported input tokens per task | 92,398,505                         |
-| Avg cache-read tokens per task     | 92,232,172                         |
-| Avg cache-creation tokens per task | 166,334                            |
-| Avg output tokens per task         | 279,349                            |
-| Avg estimated USD cost per task    | $13.30                             |
-| Avg wall-clock time per task       | 56.3 min (approximately 3,378 sec) |
-| Avg LLM requests per task          | 354.6 (range: 50–1,930)            |
+| Metric | Value |
+|--------|:------|
+| Avg reported input tokens per task | 92,398,505 |
+| Avg cache-read tokens per task | 92,232,172 |
+| Avg cache-creation tokens per task | 166,334 |
+| Avg output tokens per task | 279,349 |
+| Avg estimated USD cost per task | $13.30 |
+| Avg wall-clock time per task | 56.3 min (approximately 3,378 sec) |
+| Avg LLM requests per task | 354.6 (range: 50–1,930) |
 
 The wall-clock distribution is strongly right-skewed: the median task completes in 28.3 minutes, while the mean is 56.3 minutes and the 99th percentile reaches 4.53 hours.
 
-| Percentile/statistic | Wall-clock time                    |
-| -------------------- | :--------------------------------- |
-| p25                  | 18.1 min (1,084 sec)               |
-| p50                  | 28.3 min (1,698 sec)               |
-| p75                  | 54.1 min (approximately 3,246 sec) |
-| p99                  | 4.53 h (16,290 sec)                |
-| Maximum              | 4.91 h (approximately 17,676 sec)  |
-| Mean                 | 56.3 min (approximately 3,378 sec) |
+| Percentile/statistic | Wall-clock time |
+|----------------------|:----------------|
+| p25 | 18.1 min (1,084 sec) |
+| p50 | 28.3 min (1,698 sec) |
+| p75 | 54.1 min (approximately 3,246 sec) |
+| p99 | 4.53 h (16,290 sec) |
+| Maximum | 4.91 h (approximately 17,676 sec) |
+| Mean | 56.3 min (approximately 3,378 sec) |
 
 ---
 
