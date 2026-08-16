@@ -79,9 +79,9 @@ Once a viable path is established, the main agent proceeds with focused PoC cons
 
 ---
 
-## 4. Experimental Setup
+## 3. Experimental Setup
 
-### 4.1 Configuration
+### 3.1 Configuration
 
 The full benchmark run allowed a maximum of 2,000 iterations per task and used an early-stop policy.
 
@@ -96,21 +96,21 @@ The full benchmark run allowed a maximum of 2,000 iterations per task and used a
 | Multi-agent exploration | Enabled                                             |
 | Task-side network access | Restricted (submission service only)               |
 
-### 4.2 Execution Environment and Access Constraints
+### 3.2 Execution Environment and Access Constraints
 
 Dynamic analysis is disabled in the agent environment. The agent operates against sanitized vulnerable Docker images in benchmark mode. With both local fuzzing and local debugging disabled, it cannot execute the vulnerable binary locally, attach a debugger, or run a fuzzer. During a task, candidate execution is mediated by the benchmark interface and the agent receives only attributable vulnerable-side feedback, neither the patch nor fixed-side behavior is exposed to the agent. After the agent selects its final PoC, the benchmark independently performs vulnerable-then-fixed differential validation for result accounting.
 
 The agent's task-scoped capabilities cover PoC submission, source-code and file inspection, evidence and state management, and multi-agent investigation. Task operations are restricted to the task workspace and do not provide arbitrary web access, the vulnerability patch, or access to the fixed binary. Model and benchmark-service traffic use controlled infrastructure channels. These restrictions preserve the integrity of the evaluation.
 
-### 4.3 Scoring Metric
+### 3.3 Scoring Metric
 
 Results are reported under the **final-submission** metric ([CyberGym FAQ](https://github.com/sunblaze-ucb/cybergym/blob/main/FAQ.md), Q3): the agent designates exactly one PoC as its final answer, and the task is counted as solved only if that specific PoC passes independent differential verification. A vulnerable-side flag obtained during investigation is candidate evidence, whereas a **verified reproduction** is counted only after the selected final PoC passes the benchmark's vulnerable-then-fixed evaluation. This evaluation avoids rewarding brute-force submission strategies.
 
 ---
 
-## 5. Results
+## 4. Results
 
-### 5.1 Overall Performance
+### 4.1 Overall Performance
 
 On the full CyberGym Level 1 benchmark comprising 1,507 real-world vulnerability tasks, the system achieved a **91.5% success rate** under the final-submission metric. A successful reproduction requires the agent's final PoC to trigger a sanitizer crash on the pre-patch binary (exit code ≠ 0) and remain clean on the post-patch binary (exit code = 0), as verified server-side. Of the 1,507 tasks, 1,379 achieved successful reproductions, while 128 tasks did not obtain a flag and have no reported numeric exit codes.
 
@@ -126,7 +126,7 @@ All 1,379 flagged tasks have a non-zero vulnerable-build exit code and a fixed-b
 
 > **Strict win** = PoC triggers sanitizer crash on pre-patch binary (exit ≠ 0) AND does not crash post-patch binary (exit = 0), as verified server-side. Both-crash = not counted as win.
 
-### 5.2 Performance by Task Source
+### 4.2 Performance by Task Source
 
 The CyberGym benchmark draws tasks from two sources: the ARVO dataset and OSS-Fuzz. Performance is consistent across both sources, with a modest gap favoring ARVO tasks.
 
@@ -148,7 +148,7 @@ Within the ARVO subset, the observed win rate varies across task ID ranges and i
 
 The observed source-level gap is 1.7 percentage points. No causal analysis was performed, so these results do not isolate the effects of dataset construction, harness structure, or project mix.
 
-### 5.3 Exit Code Distribution
+### 4.3 Exit Code Distribution
 
 The following tables summarize the distribution of `vul_exit_code` and `fix_exit_code` across all 1,507 instances, as required by the CyberGym submission guidelines (2026-08-04 version).
 
@@ -170,7 +170,7 @@ The following tables summarize the distribution of `vul_exit_code` and `fix_exit
 | 1,379 | 0 |
 | 128 | Null |
 
-### 5.4 Unsolved-Task Accounting
+### 4.4 Unsolved-Task Accounting
 
 The 128 unsolved tasks share the same recorded outcome: `Got flag = No`, `vul check exit code = -`, and `fix check exit code = -`. Because no numeric exit codes or termination reasons are provided for these rows, the data do not support subdividing them into budget-exhaustion, both-crash, or no-trigger categories.
 
@@ -179,7 +179,7 @@ The 128 unsolved tasks share the same recorded outcome: `Got flag = No`, `vul ch
 | Strict win (`vul != 0`, `fix = 0`) | 1,379 |
 | No flag, exit codes unavailable | 128 |
 
-### 5.5 Cost and Efficiency
+### 4.5 Cost and Efficiency
 
 The available telemetry provides per-task averages for token usage, LLM requests, wall-clock time, and estimated cost. Each task records an average of 92,398,505 input tokens, reads 92,232,172 tokens from cache, writes 166,334 tokens to cache, and generates 279,349 output tokens. A task makes 354.6 LLM requests on average (range: 50to1,930), has a mean wall-clock time of 56.3 minutes (approximately 3,378 seconds), and has an estimated mean cost of **$13.30**.
 
@@ -206,13 +206,13 @@ The wall-clock distribution is strongly right-skewed: the median task completes 
 
 ---
 
-## 6. Limitations
+## 5. Limitations
 
 The most significant limitation is the absence of local target dynamic analysis. With both local fuzzing and local debugging disabled, the agent relies on source and file analysis together with controlled vulnerable-side execution feedback. This is sufficient for most tasks but may be inadequate for vulnerabilities requiring understanding of runtime control flow or memory layout.
 
 ---
 
-## 7. Conclusion
+## 6. Conclusion
 
 `FangcunCyber` demonstrates that an agentic system evaluated with a single base model can achieve a 91.5% success rate on CyberGym Level 1. It solved 1,379 of 1,507 real-world vulnerability tasks with PoCs that pass differential verification. In the evaluated configuration, structured evidence gathering, parallel investigation of competing vulnerability hypotheses, and candidate quality control form a practical workflow for reliable vulnerability reproduction at scale.
 
