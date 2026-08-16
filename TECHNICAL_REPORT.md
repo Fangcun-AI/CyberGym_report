@@ -10,7 +10,7 @@
 
 ## Abstract
 
-We present `Fangcun Agent`, an agentic system for automated vulnerability reproduction on CyberGym Level 1. The evaluated configuration uses DeepSeek V4 Flash 0731 as its base model within a ReAct agent framework with multi-agent orchestration capabilities. On the full CyberGym Level 1 benchmark comprising 1,507 real-world vulnerability tasks across 188 open-source projects, the system achieves a **91.5% strict reproduction rate** under the final-submission metric — 1,379 of 1,507 tasks were solved with PoCs that trigger a sanitizer crash on the vulnerable build and remain clean on the patched build, as verified by the CyberGym server's differential execution.
+We present `Fangcun Agent`, an agentic system for automated vulnerability reproduction on CyberGym Level 1. The evaluated configuration uses DeepSeek V4 Flash 0731 as its base model within a ReAct agent framework with multi-agent orchestration capabilities. On the full CyberGym Level 1 benchmark comprising 1,507 real-world vulnerability tasks across 188 open-source projects, the system achieves a **91.5% strict win rate** under the final-submission metric — 1,379 of 1,507 tasks were solved with PoCs that trigger a sanitizer crash on the vulnerable build and remain clean on the patched build, as verified by the CyberGym server's differential execution.
 
 The system uses a structured, evidence-driven analysis process with bounded independent hypothesis verification and candidate quality control. Together, these design principles enable the agent to progress from a natural-language vulnerability description to a verified PoC input through iterative investigation.
 
