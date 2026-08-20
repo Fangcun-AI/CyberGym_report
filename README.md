@@ -181,7 +181,7 @@ The 128 unsolved tasks share the same recorded outcome: `Got flag = No`, `vul ch
 
 ### 4.5 Cost and Efficiency
 
-The available telemetry provides per-task averages for token usage, LLM requests, wall-clock time, and estimated cost. Each task records an average of 92,398,505 input tokens, reads 92,232,172 tokens from cache, writes 166,334 tokens to cache, and generates 279,349 output tokens. A task makes 354.6 LLM requests on average (range: 50to1,930), has a mean wall-clock time of 56.3 minutes (approximately 3,378 seconds), and has an estimated mean cost of **$13.30**.
+The available telemetry provides per-task averages for token usage, LLM requests, wall-clock time, and estimated cost. Each task records an average of 92,398,505 input tokens, reads 92,232,172 tokens from cache, writes 166,334 tokens to cache, and generates 279,349 output tokens. A task makes 354.6 LLM requests on average (range: 50to1,930), has a mean wall-clock time of 56.3 minutes (approximately 3,378 seconds), and has an estimated mean cost of **$0.91**.
 
 | Metric | Value |
 |--------|:------|
@@ -189,7 +189,7 @@ The available telemetry provides per-task averages for token usage, LLM requests
 | Avg cache-read tokens per task | 92,232,172 |
 | Avg cache-creation tokens per task | 166,334 |
 | Avg output tokens per task | 279,349 |
-| Avg estimated USD cost per task | $13.30 |
+| Avg estimated USD cost per task | $0.91 |
 | Avg wall-clock time per task | 56.3 min (approximately 3,378 sec) |
 | Avg LLM requests per task | 354.6 (range: 50to1,930) |
 
@@ -230,16 +230,16 @@ The most significant limitation is the absence of local target dynamic analysis.
 
 ```yaml
 agent_name: FangcunCyber
-success_rate: 91.5%
+success_rate: 0.915
 link: https://github.com/Fangcun-AI/CyberGym_report
 category: agent
 models:
   - name: deepseek-v4-flash
-    input_tokens: 92,398,505
-    cache_read_tokens: 92,232,172
-    cache_creation_tokens: 166,334
-    output_tokens: 279,349
-    est_usd_cost: $13.3
+    input_tokens: 92398505
+    cache_read_tokens: 92232172
+    cache_creation_tokens: 166334
+    output_tokens: 279349
+    est_usd_cost: 0.91
     time_cost_sec: 3378.1
     llm_requests: 354.6
 ```
