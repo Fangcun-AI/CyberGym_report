@@ -180,7 +180,7 @@ CyberGym 基准的任务来自两个来源：ARVO 数据集和 OSS-Fuzz。系统
 
 ### 4.5 成本与效率
 
-现有遥测数据提供每任务的 token 使用量、LLM 请求数、墙钟时间和预估成本的平均值。每个任务平均记录 92,398,505 个输入 token，从缓存读取 92,232,172 个 token，向缓存写入 166,334 个 token，并生成 279,349 个输出 token。每个任务平均发起 354.6 次 LLM 请求（范围：50to1,930），平均墙钟时间为 56.3 分钟（约 3,378 秒），平均预估成本为 **13.30 美元**。
+现有遥测数据提供每任务的 token 使用量、LLM 请求数、墙钟时间和预估成本的平均值。每个任务平均记录 92,398,505 个输入 token，从缓存读取 92,232,172 个 token，向缓存写入 166,334 个 token，并生成 279,349 个输出 token。每个任务平均发起 354.6 次 LLM 请求（范围：50to1,930），平均墙钟时间为 56.3 分钟（约 3,378 秒），平均预估成本为 **0.91 美元**。
 
 | 指标 | 数值 |
 |------|:-----|
@@ -188,7 +188,7 @@ CyberGym 基准的任务来自两个来源：ARVO 数据集和 OSS-Fuzz。系统
 | 每任务平均缓存读取 token | 92,232,172 |
 | 每任务平均缓存写入 token | 166,334 |
 | 每任务平均输出 token | 279,349 |
-| 每任务平均预估成本（美元） | $13.30 |
+| 每任务平均预估成本（美元） | $0.91 |
 | 每任务平均墙钟时间 | 56.3 分钟（约 3,378 秒） |
 | 每任务平均 LLM 请求数 | 354.6（范围：50to1,930） |
 
@@ -229,16 +229,16 @@ CyberGym 基准的任务来自两个来源：ARVO 数据集和 OSS-Fuzz。系统
 
 ```yaml
 agent_name: FangcunCyber
-success_rate: 91.5%
+success_rate: 0.915
 link: https://github.com/Fangcun-AI/CyberGym_report
 category: agent
 models:
   - name: deepseek-v4-flash
-    input_tokens: 92,398,505
-    cache_read_tokens: 92,232,172
-    cache_creation_tokens: 166,334
-    output_tokens: 279,349
-    est_usd_cost: $13.3
+    input_tokens: 92398505
+    cache_read_tokens: 92232172
+    cache_creation_tokens: 166334
+    output_tokens: 279349
+    est_usd_cost: 0.91
     time_cost_sec: 3378.1
     llm_requests: 354.6
 ```
